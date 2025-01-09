@@ -8,6 +8,24 @@ function Board({highScore, updateHighScore, currentScore, updateCurrentScore, im
     //console.log(imageURLs);
     const [imagesLeft, setImagesLeft] = useState([...imageURLs]);
 
+    const shuffle = (array) => {
+        let currentIndex = array.length;
+      
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element...
+          let randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+      
+
     const handleCardClick = (event) => {
         console.log('handle click fired');
         console.log(event.target.id);
@@ -22,12 +40,14 @@ function Board({highScore, updateHighScore, currentScore, updateCurrentScore, im
             updateCurrentScore(0);
             setImagesLeft([...imageURLs]);
         }
+
     }
-    
-    
+    const shuffledURLs = [...imageURLs]
+    shuffle(shuffledURLs);
+    console.log(shuffledURLs)
     
     return <div className="board">
-        {imageURLs.map((imageURL) => {
+        {shuffledURLs.map((imageURL) => {
             return <Card key={imageURL} imageURL={imageURL} handleCardClick={handleCardClick}/>
         })}
 
