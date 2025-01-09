@@ -6,8 +6,8 @@ function Header({highScore, currentScore}) {
         <h1>Memory Game</h1>
         <div>
             <p>Earn points by clicking on an image without selecting the same image twice!</p>
-            <p>High Score: {highScore}</p>
-            <p>Current Score: {currentScore}</p>
+            <p><strong>High Score: {highScore}</strong></p>
+            <p><strong>Current Score: {currentScore}</strong></p>
         </div>
 
     </div>
