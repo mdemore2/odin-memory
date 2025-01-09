@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Card from "./Card";
+import '../styles/board.css';
+
 
 function Board({highScore, updateHighScore, currentScore, updateCurrentScore, imageURLs}){
     
