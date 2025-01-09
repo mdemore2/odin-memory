@@ -47,18 +47,10 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
 
-  const updateHighScore = (newScore) => () => {
-    setHighScore(newScore);
-  }
-
-  const updateCurrentScore = (newScore) => () => {
-    setCurrentScore(newScore);
-  }
-
   return <div>
     <Header highScore={highScore} currentScore={currentScore}/>
-    <Board highScore={highScore} updateHighScore={updateHighScore} 
-      currentScore={currentScore} updateCurrentScore={updateCurrentScore} 
+    <Board highScore={highScore} updateHighScore={setHighScore} 
+      currentScore={currentScore} updateCurrentScore={setCurrentScore} 
       imageURLs={imageURLs}/>
     
   </div>

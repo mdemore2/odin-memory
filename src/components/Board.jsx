@@ -3,15 +3,30 @@ import Card from "./Card";
 
 function Board({highScore, updateHighScore, currentScore, updateCurrentScore, imageURLs}){
     
-    console.log(imageURLs);
+    //console.log(imageURLs);
+    const [imagesLeft, setImagesLeft] = useState([...imageURLs]);
 
-    const [imagesLeft, setImagesLeft] = useState([]);
+    const handleCardClick = (event) => {
+        console.log('handle click fired');
+        console.log(event.target.id);
+        console.log(imagesLeft);
+        if (imagesLeft.includes(event.target.id)) {
+            setImagesLeft(imagesLeft.filter(a => a != event.target.src));
+            updateCurrentScore(currentScore+1);
+        } else {
+            if (currentScore > highScore) {
+                updateHighScore(currentScore);
+            }
+            updateCurrentScore(0);
+            setImagesLeft([...imageURLs]);
+        }
+    }
     
     
     
     return <div className="board">
         {imageURLs.map((imageURL) => {
-            return <Card key={imageURL} imageURL={imageURL} />
+            return <Card key={imageURL} imageURL={imageURL} handleCardClick={handleCardClick}/>
         })}
 
     </div>
