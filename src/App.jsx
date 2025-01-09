@@ -11,23 +11,35 @@ function App() {
     setImageURLs(imageURLs => [...imageURLs, newURL]);
   };
 
-  const fetchImage = async (seed) => {
-    const resp = await fetch(`https://picsum.photos/seed/${seed}/200`);
+  const cleanupImageURLs = () => {
+    setImageURLs([]);
+  }
+  
+
+  const fetchImage = async (seed, signal) => {
+    const resp = await fetch(`https://picsum.photos/seed/${seed}/200`, {signal});
     const imgBlob = await resp.blob();
     const imgUrl = URL.createObjectURL(imgBlob);
     appendImageURLs(imgUrl)
   };
 
   useEffect(() => {
+    console.log('Firing Effect')
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const imageSeeds = ['Serendipity', 'Zephyr', 'Oblivion', 'Celestial',
       'Vermillion', 'Quixotic', 'Mellifluous', 'Nocturnal', 'Wanderlust',];
 
     imageSeeds.forEach((seed) => {
-        fetchImage(seed);
+        fetchImage(seed, signal);
     });
 
     return () => {
-      setImageURLs([]);
+      console.log('Running cleanup')
+      cleanupImageURLs();
+      controller.abort();
     };
 
   },[]) //nothing in dependency array, only run on mount
